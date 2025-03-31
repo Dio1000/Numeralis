@@ -74,15 +74,17 @@
         android:id="@+id/devModeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dev Mode"
-        android:textColor="#FFFFFF"
+        android:layout_margin="8dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#607D8B"
         android:fontFamily="monospace"
-        android:textSize="14sp"
         android:padding="10dp"
-        android:layout_margin="8dp"
+        android:text="Dev Mode"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
         android:id="@+id/devPanel"
@@ -95,7 +97,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/devModeButton"
-        android:layout_margin="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp">
 
         <TextView
             android:id="@+id/splitView"
