@@ -11,7 +11,7 @@ public class DivOperator implements Operator {
         this.name = "DIV";
         this.arity = 2;
         this.symbol = "/";
-        this.precedence = 1;
+        this.precedence = 2;
     }
 
     @Override

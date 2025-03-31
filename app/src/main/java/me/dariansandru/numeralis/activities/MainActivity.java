@@ -1,11 +1,7 @@
 package me.dariansandru.numeralis.activities;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,29 +9,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.List;
-
 import me.dariansandru.numeralis.R;
-import me.dariansandru.numeralis.parser.Evaluator;
-import me.dariansandru.numeralis.parser.Expression;
-import me.dariansandru.numeralis.utils.algorithms.Splitter;
+import me.dariansandru.numeralis.activities.logic.BooleanFunctionsActivity;
+import me.dariansandru.numeralis.activities.logic.SatisfiabilityActivity;
+import me.dariansandru.numeralis.activities.logic.TruthTableActivity;
+import me.dariansandru.numeralis.activities.math.ArithmeticActivity;
+import me.dariansandru.numeralis.activities.math.BaseConversionActivity;
+import me.dariansandru.numeralis.activities.math.CalculusActivity;
+import me.dariansandru.numeralis.activities.math.ProbabilityActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText expressionInput;
-    private Button buttonEvaluate;
-    private TextView outputView;
-
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
-        expressionInput = findViewById(R.id.expressionInput);
-        buttonEvaluate = findViewById(R.id.buttonEvaluate);
-        outputView = findViewById(R.id.outputView);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -43,21 +32,20 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        buttonEvaluate.setOnClickListener(v -> {
-            String expression = expressionInput.getText().toString().trim();
+        findViewById(R.id.btnArithmetic).setOnClickListener(v -> openActivity(ArithmeticActivity.class));
+        findViewById(R.id.btnBaseConversion).setOnClickListener(v -> openActivity(BaseConversionActivity.class));
+        findViewById(R.id.btnCalculus).setOnClickListener(v -> openActivity(CalculusActivity.class));
+        findViewById(R.id.btnProbability).setOnClickListener(v -> openActivity(ProbabilityActivity.class));
 
-            if (expression.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Please enter a valid expression", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        findViewById(R.id.btnBooleanFunctions).setOnClickListener(v -> openActivity(BooleanFunctionsActivity.class));
+        findViewById(R.id.btnTruthTable).setOnClickListener(v -> openActivity(TruthTableActivity.class));
+        findViewById(R.id.btnSatisfiability).setOnClickListener(v -> openActivity(SatisfiabilityActivity.class));
+    }
 
-            try {
-                Expression expr = new Expression(expression);
-                List<Object> result = Splitter.recursiveSplit(expr);
-                outputView.setText(result.toString());
-            } catch (Exception e) {
-                outputView.setText("Error processing the expression: " + e.getMessage());
-            }
-        });
+    private void openActivity(Class<?> activityClass) {
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
     }
 }
+
+// TODO: Fix an issue where expressions of the form (x1 op y1) op (x2 op y2) are not split correctly
