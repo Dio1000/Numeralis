@@ -34,8 +34,11 @@ public class SqrtOperator implements Operator {
         return this.precedence;
     }
 
-    public double evaluate(double operand) {
-        return Math.sqrt(operand);
+
+    // TODO Don't do this
+    @Override
+    public double evaluate(double left, double right) {
+        return Math.sqrt(left);
     }
 
 }

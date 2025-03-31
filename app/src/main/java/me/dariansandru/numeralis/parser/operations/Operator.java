@@ -9,4 +9,5 @@ public interface Operator {
 
     public int getPrecedence();
 
+    public double evaluate(double left, double right);
 }

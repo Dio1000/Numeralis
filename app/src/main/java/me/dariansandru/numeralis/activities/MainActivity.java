@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.List;
 
 import me.dariansandru.numeralis.R;
+import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.utils.algorithms.Splitter;
 

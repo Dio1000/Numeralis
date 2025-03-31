@@ -34,6 +34,7 @@ public class ModOperator implements Operator {
         return this.precedence;
     }
 
+    @Override
     public double evaluate(double left, double right) {
         return left % right;
     }

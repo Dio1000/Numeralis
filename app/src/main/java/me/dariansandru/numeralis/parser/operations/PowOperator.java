@@ -34,6 +34,7 @@ public class PowOperator implements Operator {
         return this.precedence;
     }
 
+    @Override
     public double evaluate(double left, double right) {
         return Math.pow(left, right);
     }

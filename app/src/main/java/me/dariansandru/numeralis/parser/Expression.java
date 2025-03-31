@@ -1,5 +1,7 @@
 package me.dariansandru.numeralis.parser;
 
+import androidx.annotation.NonNull;
+
 public class Expression {
     private final String expr;
 
@@ -25,5 +27,11 @@ public class Expression {
             return false;
         }
         return true;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.expr;
     }
 }
