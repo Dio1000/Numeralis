@@ -6,6 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class DBConnection {
         }
     }
 
-    private static void saveScientist(String name, String password) {
+    public static void saveScientist(String name, String password) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", name);
@@ -129,5 +131,56 @@ public class DBConnection {
         cursor.close();
         db.close();
         return permissions;
+    }
+
+    public static String getScientistPassword(String name) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT password FROM scientists WHERE name = ?", new String[]{name});
+
+        String password = null;
+        if (cursor.moveToFirst()) {
+            password = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+        return password;
+    }
+
+    public static String getAdminPassword(String name) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT password FROM admins WHERE name = ?", new String[]{name});
+
+        String password = null;
+        if (cursor.moveToFirst()) {
+            password = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+        return password;
+    }
+
+    public static List<String> getAllUsers() {
+        List<String> users = new ArrayList<>();
+
+        List<Scientist> scientists = getAllScientists();
+        List<Admin> admins = getAllAdmins();
+        for (Scientist scientist : scientists){
+            users.add(scientist.getName() + " " + scientist.getPassword());
+        }
+
+        for (Admin admin : admins){
+            users.add(admin.getName() + " " + admin.getPassword());
+        }
+
+        return users;
+    }
+
+    public static void logAllUsers() {
+        List<String> allUsers = getAllUsers();
+        for (String user : allUsers) {
+            Toast.makeText(appContext, user, Toast.LENGTH_SHORT).show();
+        }
     }
 }

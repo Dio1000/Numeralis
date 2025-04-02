@@ -50,4 +50,5 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
+// TODO: Remove the dev modes after debugging
 // TODO: Fix an issue where expressions of the form (x1 op y1) op (x2 op y2) are not split correctly
