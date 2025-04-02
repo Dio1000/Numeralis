@@ -17,12 +17,14 @@ import me.dariansandru.numeralis.activities.math.ArithmeticActivity;
 import me.dariansandru.numeralis.activities.math.BaseConversionActivity;
 import me.dariansandru.numeralis.activities.math.CalculusActivity;
 import me.dariansandru.numeralis.activities.math.ProbabilityActivity;
+import me.dariansandru.numeralis.utils.db.DBConnection;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DBConnection.init(this);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 

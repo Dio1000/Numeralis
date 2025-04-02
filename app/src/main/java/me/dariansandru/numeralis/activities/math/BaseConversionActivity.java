@@ -49,7 +49,7 @@ public class BaseConversionActivity extends AppCompatActivity {
         fromBaseSpinner.setAdapter(adapter);
         toBaseSpinner.setAdapter(adapter);
 
-        fromBaseSpinner.setSelection(10);
+        fromBaseSpinner.setSelection(8);
         toBaseSpinner.setSelection(14);
     }
 
