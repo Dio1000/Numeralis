@@ -1,6 +1,7 @@
 package me.dariansandru.numeralis.activities.math;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.dariansandru.numeralis.R;
+import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.utils.structures.BaseNumber;
 import me.dariansandru.numeralis.utils.algorithms.BaseConverter;
 
@@ -37,6 +39,13 @@ public class BaseConversionActivity extends AppCompatActivity {
 
         setupSpinners();
         convertButton.setOnClickListener(v -> performConversion());
+
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(BaseConversionActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void setupSpinners() {

@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private RadioGroup userTypeGroup;
     private RadioButton radioAdmin;
-    private EditText adminSecretPassword, inputName, inputPassword, inputConfirmPassword;
+    private EditText adminSecretPassword, inputName, inputPassword;
     private Button btnLogin, btnRegister, btnDevMode;
 
     @Override
@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
             adminSecretPassword = findViewById(R.id.adminSecretPassword);
             inputName = findViewById(R.id.inputName);
             inputPassword = findViewById(R.id.inputPassword);
-            inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
             btnLogin = findViewById(R.id.btnLogin);
             btnRegister = findViewById(R.id.btnRegister);
             btnDevMode = findViewById(R.id.btnDevMode);
@@ -58,15 +57,9 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 String name = inputName.getText().toString().trim();
                 String password = inputPassword.getText().toString();
-                String confirmPassword = inputConfirmPassword.getText().toString();
 
                 if (name.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Name and password are required!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!password.equals(confirmPassword)) {
-                    Toast.makeText(LoginActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -109,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         inputName.setText("");
         inputPassword.setText("");
-        inputConfirmPassword.setText("");
         inputName.requestFocus();
     }
 }

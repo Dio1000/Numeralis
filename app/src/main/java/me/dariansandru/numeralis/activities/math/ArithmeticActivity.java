@@ -1,6 +1,7 @@
 package me.dariansandru.numeralis.activities.math;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.List;
 
 import me.dariansandru.numeralis.R;
+import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.utils.algorithms.Splitter;
@@ -72,6 +74,13 @@ public class ArithmeticActivity extends AppCompatActivity {
             } catch (Exception e) {
                 outputView.setText("Error: " + e.getMessage());
             }
+        });
+
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ArithmeticActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

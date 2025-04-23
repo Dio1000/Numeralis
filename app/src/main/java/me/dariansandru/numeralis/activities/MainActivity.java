@@ -16,7 +16,6 @@ import me.dariansandru.numeralis.activities.logic.TruthTableActivity;
 import me.dariansandru.numeralis.activities.math.ArithmeticActivity;
 import me.dariansandru.numeralis.activities.math.BaseConversionActivity;
 import me.dariansandru.numeralis.activities.math.CalculusActivity;
-import me.dariansandru.numeralis.activities.math.ProbabilityActivity;
 import me.dariansandru.numeralis.utils.db.DBConnection;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnArithmetic).setOnClickListener(v -> openActivity(ArithmeticActivity.class));
         findViewById(R.id.btnBaseConversion).setOnClickListener(v -> openActivity(BaseConversionActivity.class));
         findViewById(R.id.btnCalculus).setOnClickListener(v -> openActivity(CalculusActivity.class));
-        findViewById(R.id.btnProbability).setOnClickListener(v -> openActivity(ProbabilityActivity.class));
 
         findViewById(R.id.btnBooleanFunctions).setOnClickListener(v -> openActivity(BooleanFunctionsActivity.class));
         findViewById(R.id.btnTruthTable).setOnClickListener(v -> openActivity(TruthTableActivity.class));

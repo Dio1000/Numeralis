@@ -6,112 +6,108 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="#121212"
+    android:padding="24dp"
     tools:context=".activities.math.BaseConversionActivity">
 
-    <TextView
-        android:id="@+id/titleText"
+    <Button
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="#4CAF50"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:fontFamily="monospace"
+        android:text="← Back"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1E1E1E"
+        android:padding="12dp"
+        android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
-        android:id="@+id/enterNumberLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Number"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        app:layout_constraintTop_toBottomOf="@id/titleText"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginTop="40dp"/>
 
     <EditText
         android:id="@+id/inputNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Enter number"
-        android:inputType="text"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:background="@android:drawable/editbox_background"
-        app:layout_constraintTop_toBottomOf="@id/enterNumberLabel"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#9E9E9E"
+        android:textSize="18sp"
+        android:padding="14dp"
+        android:background="#1E1E1E"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="32dp"/>
 
     <TextView
         android:id="@+id/fromBaseLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="From Base"
-        android:textSize="18sp"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/inputNumber"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
 
     <Spinner
         android:id="@+id/fromBaseSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#1E1E1E"
         app:layout_constraintTop_toBottomOf="@id/fromBaseLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/toBaseLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To Base"
-        android:textSize="18sp"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/fromBaseSpinner"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
 
     <Spinner
         android:id="@+id/toBaseSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#1E1E1E"
         app:layout_constraintTop_toBottomOf="@id/toBaseLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/convertButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Convert"
-        android:backgroundTint="#4CAF50"
+        android:text="CONVERT"
         android:textColor="#FFFFFF"
-        android:padding="12dp"
+        android:backgroundTint="#3700B3"
+        android:textAllCaps="true"
+        android:padding="14dp"
         app:layout_constraintTop_toBottomOf="@id/toBaseSpinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="24dp"/>
 
     <TextView
         android:id="@+id/outputView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Result will appear here"
-        android:textColor="#212121"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="#1E1E1E"
+        android:padding="20dp"
+        android:textSize="18sp"
         android:fontFamily="monospace"
         android:gravity="center"
-        android:padding="16dp"
-        android:background="#E0E0E0"
         app:layout_constraintTop_toBottomOf="@id/convertButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

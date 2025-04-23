@@ -5,7 +5,7 @@ import me.dariansandru.numeralis.utils.db.DBConnection;
 
 import java.util.List;
 
-public abstract class UserRepo {
+public abstract class ScientistRepo {
     private static List<Scientist> scientists;
 
     public static List<Scientist> getScientists(){
