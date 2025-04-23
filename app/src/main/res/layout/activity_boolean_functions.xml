@@ -59,6 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="32dp"/>
 
+    <!-- Expression Input -->
     <EditText
         android:id="@+id/expressionInput"
         android:layout_width="0dp"
@@ -76,6 +77,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
+    <!-- Logical Operator Keyboard -->
+    <LinearLayout
+        android:id="@+id/logicKeyboard"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#2A2A2A"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/expressionInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnAnd"
+            style="@style/LogicButton"
+            android:text="∧"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnOr"
+            style="@style/LogicButton"
+            android:text="∨"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnNot"
+            style="@style/LogicButton"
+            android:text="¬"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnImplies"
+            style="@style/LogicButton"
+            android:text="⇒"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnIff"
+            style="@style/LogicButton"
+            android:text="⇔"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/computeSection"
         android:layout_width="0dp"
@@ -83,7 +129,7 @@
         android:orientation="vertical"
         android:background="#1E1E1E"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/expressionInput"
+        app:layout_constraintTop_toBottomOf="@id/logicKeyboard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp">

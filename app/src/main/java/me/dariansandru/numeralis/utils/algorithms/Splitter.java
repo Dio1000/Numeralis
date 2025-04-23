@@ -9,7 +9,7 @@ import me.dariansandru.numeralis.parser.OperatorRegistry;
 
 public abstract class Splitter {
 
-    static List<Expression> splitExpression(Expression expression, String symbol) {
+    public static List<Expression> splitExpression(Expression expression, String symbol) {
         List<Expression> expressions = new ArrayList<>();
         String expr = expression.getExpression();
 
@@ -42,14 +42,13 @@ public abstract class Splitter {
         return expressions;
     }
 
-    static List<Expression> singleBLSplit(Expression expression) {
+    public static List<Expression> singleBLSplit(Expression expression, List<String> operators) {
         String expr = expression.getExpression();
         if (expr.startsWith("(") && expr.endsWith(")")) {
             expr = expr.substring(1, expr.length() - 1);
             expression = new Expression(expr);
         }
 
-        List<String> operators = OperatorRegistry.getOperatorSymbols();
         for (String operator : operators) {
             List<Expression> expressions = splitExpression(expression, operator);
             if (expressions.size() == 2) {
@@ -61,14 +60,14 @@ public abstract class Splitter {
         return new ArrayList<>();
     }
 
-    public static List<Object> recursiveSplit(Expression expression) {
-        List<Expression> split = singleBLSplit(expression);
+    public static List<Object> recursiveSplit(Expression expression, List<String> operators) {
+        List<Expression> split = singleBLSplit(expression, operators);
         if (split.isEmpty()) return List.of(expression.getExpression());
 
         List<Object> result = new ArrayList<>();
         result.add(split.get(0).getExpression());
-        result.add(recursiveSplit(split.get(1)));
-        result.add(recursiveSplit(split.get(2)));
+        result.add(recursiveSplit(split.get(1), operators));
+        result.add(recursiveSplit(split.get(2), operators));
 
         return result;
     }

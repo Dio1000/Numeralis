@@ -26,7 +26,16 @@ public abstract class OperatorRegistry {
         result.add("/");
         result.add("%");
         result.add("^");
-        result.add("sqrt");
+
+        return result;
+    }
+
+    public static List<String> getLogicalOperatorSymbols() {
+        List<String> result = new ArrayList<>();
+        result.add("⇔");
+        result.add("⇒");
+        result.add("∧");
+        result.add("∨");
 
         return result;
     }

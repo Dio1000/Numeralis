@@ -21,6 +21,7 @@ import me.dariansandru.numeralis.R;
 import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
+import me.dariansandru.numeralis.parser.OperatorRegistry;
 import me.dariansandru.numeralis.utils.algorithms.Splitter;
 
 public class ArithmeticActivity extends AppCompatActivity {
@@ -67,7 +68,9 @@ public class ArithmeticActivity extends AppCompatActivity {
 
             try {
                 Expression expr = new Expression(expression);
-                List<Object> result = Splitter.recursiveSplit(expr);
+                List<String> operators = OperatorRegistry.getOperatorSymbols();
+
+                List<Object> result = Splitter.recursiveSplit(expr, operators);
                 outputView.setText("Result: " + Evaluator.evaluate(result));
 
                 splitView.setText("Split Version: " + result.toString());
