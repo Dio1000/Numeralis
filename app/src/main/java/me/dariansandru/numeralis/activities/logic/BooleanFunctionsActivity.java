@@ -20,7 +20,9 @@ import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.parser.OperatorRegistry;
+import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
 import me.dariansandru.numeralis.utils.algorithms.Splitter;
+import me.dariansandru.numeralis.utils.structures.TruthTable;
 
 public class BooleanFunctionsActivity extends AppCompatActivity {
 
@@ -65,6 +67,38 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
                 resultBox.setText(arithmeticExpression.substring(1, arithmeticExpression.length() - 1));
             } else {
                 resultBox.setText("Please enter an expression.");
+            }
+        });
+
+        Button cnfButton = findViewById(R.id.cnfButton);
+        EditText cnfBox = findViewById(R.id.cnfResult);
+
+        cnfButton.setOnClickListener(v -> {
+            String input = expressionInput.getText().toString().trim();
+            if (!input.isEmpty()) {
+                Expression expression = new Expression(input);
+                TruthTable truthTable = new TruthTable(expression);
+                Expression cnfExpression = LogicHelper.truthTableToCNF(truthTable);
+
+                cnfBox.setText(cnfExpression.toString());
+            } else {
+                cnfBox.setText("Please enter an expression.");
+            }
+        });
+
+        Button dnfButton = findViewById(R.id.dnfButton);
+        EditText dnfBox = findViewById(R.id.dnfResult);
+
+        dnfButton.setOnClickListener(v -> {
+            String input = expressionInput.getText().toString().trim();
+            if (!input.isEmpty()) {
+                Expression expression = new Expression(input);
+                TruthTable truthTable = new TruthTable(expression);
+                Expression dnfExpression = LogicHelper.truthTableToDNF(truthTable);
+
+                dnfBox.setText(dnfExpression.toString());
+            } else {
+                dnfBox.setText("Please enter an expression.");
             }
         });
     }

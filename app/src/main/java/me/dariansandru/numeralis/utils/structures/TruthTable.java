@@ -20,7 +20,6 @@ public class TruthTable {
         this.expression = expression;
         this.literals = LogicHelper.getLiterals(expression);
 
-        //TODO Come up with another way of storing the expression itself
         this.literals.add(expression.toString());
         this.buildTable();
     }
@@ -61,6 +60,17 @@ public class TruthTable {
         }
 
         return tableBuilder.toString();
+    }
+
+    public List<List<String>> getRows() {
+        List<List<String>> rows = new ArrayList<>();
+
+        for (Map<String, String> row : table) {
+            List<String> newRow = new ArrayList<>(row.values());
+            rows.add(newRow);
+        }
+
+        return rows;
     }
 
     public List<String> getLiterals() {

@@ -3,10 +3,12 @@ package me.dariansandru.numeralis.utils.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.parser.OperatorRegistry;
+import me.dariansandru.numeralis.utils.structures.TruthTable;
 
 public abstract class LogicHelper {
 
@@ -62,5 +64,70 @@ public abstract class LogicHelper {
         Expression interpretableExpression = getInterpretableExpression(expression, table);
         List<String> operators = OperatorRegistry.getOperatorSymbols();
         return (int) Evaluator.evaluate(Splitter.recursiveSplit(interpretableExpression, operators));
+    }
+
+    public static Expression truthTableToCNF(TruthTable truthTable) {
+        List<String> literals = truthTable.getLiterals();
+        List<List<String>> rows = truthTable.getRows();
+        StringBuilder expressionString = new StringBuilder();
+
+        for (List<String> row : rows) {
+            int size = row.size();
+            String truthValue = row.get(size - 1);
+
+            if (!"0".equals(truthValue)) continue;
+
+            StringBuilder clause = new StringBuilder();
+            for (int i = 0; i < size - 1; i++) {
+                String literal = literals.get(i);
+                String value = row.get(i);
+
+                if ("0".equals(value)) clause.append(literal);
+                else clause.append("¬").append(literal);
+
+                if (i < size - 2) clause.append(" ∨ ");
+            }
+            expressionString.append("(").append(clause).append(") ∧ ");
+        }
+
+        int len = expressionString.length();
+        if (len >= 3) {
+            expressionString.setLength(len - 3);
+        }
+
+        return new Expression(expressionString.toString());
+    }
+
+
+    public static Expression truthTableToDNF(TruthTable truthTable) {
+        List<String> literals = truthTable.getLiterals();
+        List<List<String>> rows = truthTable.getRows();
+        StringBuilder expressionString = new StringBuilder();
+
+        for (List<String> row : rows) {
+            int size = row.size();
+            String truthValue = row.get(size - 1);
+
+            if (!"1".equals(truthValue)) continue;
+
+            StringBuilder clause = new StringBuilder();
+            for (int i = 0; i < size - 1; i++) {
+                String literal = literals.get(i);
+                String value = row.get(i);
+
+                if ("0".equals(value)) clause.append("¬").append(literal);
+                else clause.append(literal);
+
+                if (i < size - 2) clause.append(" ∧ ");
+            }
+            expressionString.append("(").append(clause).append(") ∨ ");
+        }
+
+        int len = expressionString.length();
+        if (len >= 3) {
+            expressionString.setLength(len - 3);
+        }
+
+        return new Expression(expressionString.toString());
     }
 }
