@@ -1,6 +1,7 @@
 package me.dariansandru.numeralis.parser;
 
 import me.dariansandru.numeralis.parser.operations.OperatorFactory;
+import me.dariansandru.numeralis.utils.algorithms.Splitter;
 
 import java.util.List;
 
@@ -117,7 +118,7 @@ public abstract class Evaluator {
             case "⇒":
                 return formatOperation("1 - " + left + " + " + left + " * " + right);
             case "⇔":
-                return formatOperation("(" + left + " - " + right + ")^2");
+                return formatOperation("1 - (" + left + " - " + right + ")^2");
             default:
                 throw new IllegalArgumentException("Unknown operator: " + operator);
         }
@@ -129,20 +130,42 @@ public abstract class Evaluator {
      * @return The correctly parsed arithmetic version of the operand.
      */
     private static String formatOperand(String s) {
-        if (s == null || s.trim().isEmpty()) throw new IllegalArgumentException("Operand cannot be empty");
+        if (s == null || s.trim().isEmpty()) {
+            throw new IllegalArgumentException("Operand cannot be empty");
+        }
         s = s.trim();
 
         if (s.startsWith("¬")) {
             String inner = s.substring(1).trim();
-            if (inner.isEmpty()) throw new IllegalArgumentException("Negation must have an operand");
+            if (inner.isEmpty()) {
+                throw new IllegalArgumentException("Negation must have an operand");
+            }
 
-            String formattedInner = formatOperand(inner);
-            return !isSimpleOperand(formattedInner) ?
-                    "(1 - " + formattedInner + ")" :
-                    "1 - " + formattedInner;
+            if (containsLogicalOperators(inner)) {
+                Expression expr = new Expression(inner);
+                List<String> operators = OperatorRegistry.getLogicalOperatorSymbols();
+                List<Object> parsed = Splitter.recursiveSplit(expr, operators);
+                String transformed = transform(parsed);
+                return "(1 - (" + transformed + "))";
+            }
+            else return "(1 - " + inner + ")";
+
         }
-
         return isSimpleOperand(s) ? s : "(" + s + ")";
+    }
+
+    /**
+     * Auxiliary function to check for the existence of logical operators. This function is used
+     * to check for expressions that have more than one literal.
+     * @param s String to check in.
+     * @return True if the expression is complex (contains logical operators), false otherwise.
+     */
+    private static boolean containsLogicalOperators(String s) {
+        List<String> operators = OperatorRegistry.getLogicalOperatorSymbols();
+        for (String operator: operators) {
+            if (s.contains(operator)) return true;
+        }
+        return false;
     }
 
     /**

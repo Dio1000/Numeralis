@@ -62,7 +62,7 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
                 List<Object> result = Splitter.recursiveSplit(expression, operators);
 
                 String arithmeticExpression = Evaluator.transform(result);
-                resultBox.setText(arithmeticExpression.substring(1, arithmeticExpression.length() - 1));
+                resultBox.setText(arithmeticExpression);
             } else {
                 resultBox.setText("Please enter an expression.");
             }
