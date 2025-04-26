@@ -43,18 +43,33 @@ public class TruthTableActivity extends AppCompatActivity {
             finish();
         });
 
-        EditText expressionInput = findViewById(R.id.expressionInput);
-        findViewById(R.id.btnAnd).setOnClickListener(v -> expressionInput.append("∧"));
-        findViewById(R.id.btnOr).setOnClickListener(v -> expressionInput.append("∨"));
-        findViewById(R.id.btnImplies).setOnClickListener(v -> expressionInput.append("⇒"));
-        findViewById(R.id.btnIff).setOnClickListener(v -> expressionInput.append("⇔"));
-        findViewById(R.id.btnNot).setOnClickListener(v -> expressionInput.append("¬"));
+        View.OnClickListener insertSymbolListener = v -> {
+            EditText expressionInput = findViewById(R.id.expressionInput);
+            Button button = (Button) v;
+            String symbol = button.getText().toString();
+            int start = Math.max(expressionInput.getSelectionStart(), 0);
+            int end = Math.max(expressionInput.getSelectionEnd(), 0);
+            expressionInput.getText().replace(Math.min(start, end), Math.max(start, end),
+                    symbol, 0, symbol.length());
+        };
+
+        findViewById(R.id.btnAnd).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnOr).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnNot).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnImplies).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnIff).setOnClickListener(insertSymbolListener);
+
+        findViewById(R.id.btnClr).setOnClickListener(v -> {
+            EditText expressionInput = findViewById(R.id.expressionInput);
+            expressionInput.setText("");
+        });
 
         Button generateButton = findViewById(R.id.generateButton);
         LinearLayout truthTableContent = findViewById(R.id.truthTableContent);
         TextView variablesCount = findViewById(R.id.variablesCount);
         TextView errorMessage = findViewById(R.id.errorMessage);
 
+        EditText expressionInput = findViewById(R.id.expressionInput);
         generateButton.setOnClickListener(v -> {
             try {
                 truthTableContent.removeAllViews();

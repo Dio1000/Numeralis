@@ -75,7 +75,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- Logic Keyboard -->
     <LinearLayout
         android:id="@+id/logicKeyboard"
         android:layout_width="0dp"
@@ -117,6 +116,13 @@
             android:id="@+id/btnIff"
             style="@style/LogicButton"
             android:text="⇔"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnClr"
+            style="@style/LogicButton"
+            android:text="CLR"
+            android:backgroundTint="#B00020"
             android:layout_weight="1"/>
     </LinearLayout>
 

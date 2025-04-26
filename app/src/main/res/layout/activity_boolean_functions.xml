@@ -59,7 +59,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- Expression Input -->
     <EditText
         android:id="@+id/expressionInput"
         android:layout_width="0dp"
@@ -77,7 +76,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- Logical Operator Keyboard -->
     <LinearLayout
         android:id="@+id/logicKeyboard"
         android:layout_width="0dp"
@@ -95,31 +93,45 @@
             android:id="@+id/btnAnd"
             style="@style/LogicButton"
             android:text="∧"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/btnOr"
             style="@style/LogicButton"
             android:text="∨"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/btnNot"
             style="@style/LogicButton"
             android:text="¬"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/btnImplies"
             style="@style/LogicButton"
             android:text="⇒"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/btnIff"
             style="@style/LogicButton"
             android:text="⇔"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnClr"
+            style="@style/LogicButton"
+            android:text="CLR"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#B00020"
+            android:layout_weight="1"
+            android:padding="12dp"/>
     </LinearLayout>
 
     <LinearLayout

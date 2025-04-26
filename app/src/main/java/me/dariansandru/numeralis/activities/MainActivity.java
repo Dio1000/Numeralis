@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import me.dariansandru.numeralis.R;
 import me.dariansandru.numeralis.activities.logic.BooleanFunctionsActivity;
+import me.dariansandru.numeralis.activities.logic.LogicalEquivalenceActivity;
 import me.dariansandru.numeralis.activities.logic.SatisfiabilityActivity;
 import me.dariansandru.numeralis.activities.logic.TruthTableActivity;
 import me.dariansandru.numeralis.activities.math.ArithmeticActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnBooleanFunctions).setOnClickListener(v -> openActivity(BooleanFunctionsActivity.class));
         findViewById(R.id.btnTruthTable).setOnClickListener(v -> openActivity(TruthTableActivity.class));
         findViewById(R.id.btnSatisfiability).setOnClickListener(v -> openActivity(SatisfiabilityActivity.class));
+        findViewById(R.id.btnLogicalEquivalency).setOnClickListener(v -> openActivity(LogicalEquivalenceActivity.class));
     }
 
     private void openActivity(Class<?> activityClass) {

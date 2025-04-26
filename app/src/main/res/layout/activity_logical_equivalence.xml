@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#121212"
+    tools:context=".activities.logic.LogicalEquivalenceActivity">
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="← Back"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1E1E1E"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logical Equivalency Checker"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/formula1Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Formula 1:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <EditText
+        android:id="@+id/formulaInput1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="e.g., (P ∨ Q)"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:gravity="top|start"
+        android:padding="16dp"
+        android:background="#1E1E1E"
+        android:textColorHint="#9E9E9E"
+        app:layout_constraintTop_toBottomOf="@id/formula1Label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/formula2Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Formula 2:"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/formulaInput1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/formulaInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="e.g., ¬(¬P ∧ ¬Q)"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:gravity="top|start"
+        android:padding="16dp"
+        android:background="#1E1E1E"
+        android:textColorHint="#9E9E9E"
+        app:layout_constraintTop_toBottomOf="@id/formula2Label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/keyboardLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#2A2A2A"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@id/formulaInput2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnAnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="∧"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3700B3"
+            android:layout_weight="1"
+            style="@style/LogicButton"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnOr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="∨"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3700B3"
+            android:layout_weight="1"
+            style="@style/LogicButton"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnNot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="¬"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3700B3"
+            android:layout_weight="1"
+            style="@style/LogicButton"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnImplies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="⇒"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3700B3"
+            android:layout_weight="1"
+            style="@style/LogicButton"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnIff"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="⇔"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#3700B3"
+            android:layout_weight="1"
+            style="@style/LogicButton"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnClr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="CLR"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#B00020"
+            android:layout_weight="1"
+            style="@style/LogicButton"
+            android:padding="12dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/checkEquivalenceButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="CHECK EQUIVALENCE"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#3700B3"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/keyboardLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/equivalenceResult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Result will appear here"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/checkEquivalenceButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

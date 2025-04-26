@@ -10,7 +10,6 @@
     android:padding="24dp"
     tools:context=".activities.MainActivity">
 
-    <!-- Title Section -->
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- Mathematics Section -->
     <LinearLayout
         android:id="@+id/mathSection"
         android:layout_width="0dp"
@@ -49,7 +47,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Arithmetic Button -->
         <Button
             android:id="@+id/btnArithmetic"
             android:layout_width="match_parent"
@@ -60,7 +57,6 @@
             android:textSize="20sp"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Base Conversion Button -->
         <Button
             android:id="@+id/btnBaseConversion"
             android:layout_width="match_parent"
@@ -71,7 +67,6 @@
             android:textSize="20sp"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Calculus Button -->
         <Button
             android:id="@+id/btnCalculus"
             android:layout_width="match_parent"
@@ -83,7 +78,6 @@
             android:layout_marginBottom="12dp"/>
     </LinearLayout>
 
-    <!-- Logic Section -->
     <LinearLayout
         android:id="@+id/logicSection"
         android:layout_width="0dp"
@@ -107,7 +101,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Boolean Functions Button -->
         <Button
             android:id="@+id/btnBooleanFunctions"
             android:layout_width="match_parent"
@@ -118,7 +111,6 @@
             android:textSize="20sp"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Truth Table Button -->
         <Button
             android:id="@+id/btnTruthTable"
             android:layout_width="match_parent"
@@ -129,12 +121,21 @@
             android:textSize="20sp"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Satisfiability Button -->
         <Button
             android:id="@+id/btnSatisfiability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Satisfiability"
+            android:backgroundTint="#3700B3"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnLogicalEquivalency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logical Equivalency"
             android:backgroundTint="#3700B3"
             android:textColor="#FFFFFF"
             android:textSize="20sp"/>

@@ -12,25 +12,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Numeralis"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activities.logic.LogicalEquivalenceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.logic.LogicalEquivalencyActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.RegisterActivity" android:exported="false" />
-        <activity android:name=".activities.logic.SatisfiabilityActivity" android:exported="false" />
-        <activity android:name=".activities.logic.TruthTableActivity" android:exported="false" />
-        <activity android:name=".activities.logic.BooleanFunctionsActivity" android:exported="false" />
-        <activity android:name=".activities.math.ProbabilityActivity" android:exported="false" />
-        <activity android:name=".activities.math.CalculusActivity" android:exported="false" />
-        <activity android:name=".activities.math.BaseConversionActivity" android:exported="false" />
-        <activity android:name=".activities.math.ArithmeticActivity" android:exported="false" />
-
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.logic.SatisfiabilityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.logic.TruthTableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.logic.BooleanFunctionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.math.ProbabilityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.math.CalculusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.math.BaseConversionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.math.ArithmeticActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -53,17 +53,36 @@ public class SatisfiabilityActivity extends AppCompatActivity {
         resultValue = findViewById(R.id.resultValue);
         errorMessage = findViewById(R.id.errorMessage);
 
-        findViewById(R.id.btnAnd).setOnClickListener(v -> formulaInput.append("∧"));
-        findViewById(R.id.btnOr).setOnClickListener(v -> formulaInput.append("∨"));
-        findViewById(R.id.btnImplies).setOnClickListener(v -> formulaInput.append("⇒"));
-        findViewById(R.id.btnIff).setOnClickListener(v -> formulaInput.append("⇔"));
-        findViewById(R.id.btnNot).setOnClickListener(v -> formulaInput.append("¬"));
+        View.OnClickListener insertSymbolListener = v -> {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus instanceof EditText) {
+                EditText editText = (EditText) currentFocus;
+                Button button = (Button) v;
+                String symbol = button.getText().toString();
+                int start = Math.max(editText.getSelectionStart(), 0);
+                int end = Math.max(editText.getSelectionEnd(), 0);
+                editText.getText().replace(Math.min(start, end), Math.max(start, end),
+                        symbol, 0, symbol.length());
+            }
+        };
 
-        findViewById(R.id.btnAnd).setOnLongClickListener(v -> { clauseInput.append("∧"); return true; });
-        findViewById(R.id.btnOr).setOnLongClickListener(v -> { clauseInput.append("∨"); return true; });
-        findViewById(R.id.btnImplies).setOnLongClickListener(v -> { clauseInput.append("⇒"); return true; });
-        findViewById(R.id.btnIff).setOnLongClickListener(v -> { clauseInput.append("⇔"); return true; });
-        findViewById(R.id.btnNot).setOnLongClickListener(v -> { clauseInput.append("¬"); return true; });
+        findViewById(R.id.btnAnd).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnOr).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnNot).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnImplies).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnIff).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnClrFormula).setOnClickListener(v -> {
+            formulaInput.setText("");
+        });
+
+        findViewById(R.id.btnAndClause).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnOrClause).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnNotClause).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnImpliesClause).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnIffClause).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnClrClause).setOnClickListener(v -> {
+            clauseInput.setText("");
+        });
 
         Button computeFormulaButton = findViewById(R.id.checkFormulaButton);
         Button computeClauseButton = findViewById(R.id.checkClausesButton);

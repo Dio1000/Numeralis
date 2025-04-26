@@ -2,6 +2,7 @@ package me.dariansandru.numeralis.activities.logic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -45,11 +46,31 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
 
         EditText expressionInput = findViewById(R.id.expressionInput);
 
-        findViewById(R.id.btnAnd).setOnClickListener(v -> expressionInput.append("∧"));
-        findViewById(R.id.btnOr).setOnClickListener(v -> expressionInput.append("∨"));
-        findViewById(R.id.btnImplies).setOnClickListener(v -> expressionInput.append("⇒"));
-        findViewById(R.id.btnIff).setOnClickListener(v -> expressionInput.append("⇔"));
-        findViewById(R.id.btnNot).setOnClickListener(v -> expressionInput.append("¬"));
+        findViewById(R.id.btnClr).setOnClickListener(v -> {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus instanceof EditText) {
+                ((EditText) currentFocus).setText("");
+            }
+        });
+
+        View.OnClickListener insertSymbolListener = v -> {
+            View currentFocus = getCurrentFocus();
+            if (currentFocus instanceof EditText) {
+                EditText editText = (EditText) currentFocus;
+                Button button = (Button) v;
+                String symbol = button.getText().toString();
+                int start = Math.max(editText.getSelectionStart(), 0);
+                int end = Math.max(editText.getSelectionEnd(), 0);
+                editText.getText().replace(Math.min(start, end), Math.max(start, end),
+                        symbol, 0, symbol.length());
+            }
+        };
+
+        findViewById(R.id.btnAnd).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnOr).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnImplies).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnIff).setOnClickListener(insertSymbolListener);
+        findViewById(R.id.btnNot).setOnClickListener(insertSymbolListener);
 
         Button computeButton = findViewById(R.id.computeButton);
         EditText resultBox = findViewById(R.id.arithmeticResult);
@@ -66,6 +87,11 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
             } else {
                 resultBox.setText("Please enter an expression.");
             }
+        });
+
+        Button clearButton = findViewById(R.id.btnClr);
+        clearButton.setOnClickListener(v -> {
+            expressionInput.setText("");
         });
 
         Button cnfButton = findViewById(R.id.cnfButton);
