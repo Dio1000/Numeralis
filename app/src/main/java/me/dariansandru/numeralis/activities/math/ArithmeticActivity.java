@@ -40,22 +40,11 @@ public class ArithmeticActivity extends AppCompatActivity {
         expressionInput = findViewById(R.id.expressionInput);
         buttonEvaluate = findViewById(R.id.buttonEvaluate);
         outputView = findViewById(R.id.outputView);
-        Button devModeButton = findViewById(R.id.devModeButton);
-        TextView splitView = findViewById(R.id.splitView);
-        View devPanel = findViewById(R.id.devPanel);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-
-        devModeButton.setOnClickListener(v -> {
-            if (devPanel.getVisibility() == View.VISIBLE) {
-                devPanel.setVisibility(View.GONE);
-            } else {
-                devPanel.setVisibility(View.VISIBLE);
-            }
         });
 
         buttonEvaluate.setOnClickListener(v -> {
@@ -73,7 +62,6 @@ public class ArithmeticActivity extends AppCompatActivity {
                 List<Object> result = Splitter.recursiveSplit(expr, operators);
                 outputView.setText("Result: " + Evaluator.evaluate(result));
 
-                splitView.setText("Split Version: " + result.toString());
             } catch (Exception e) {
                 outputView.setText("Error: " + e.getMessage());
             }

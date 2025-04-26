@@ -32,22 +32,23 @@ public abstract class Splitter {
         StringBuilder leftHandSide = new StringBuilder();
         StringBuilder rightHandSide = new StringBuilder();
 
-        boolean inBrackets = false;
+        int bracketDepth = 0;
         boolean foundSymbol = false;
 
         int index = 0;
         while (index < expr.length()) {
-            if (expr.charAt(index) == '(') inBrackets = true;
-            else if (expr.charAt(index) == ')') inBrackets = false;
+            char c = expr.charAt(index);
 
-            if (!inBrackets && !foundSymbol && Objects.equals(String.valueOf(expr.charAt(index)), symbol)) {
+            if (c == '(') bracketDepth++;
+            else if (c == ')') bracketDepth--;
+            if (bracketDepth == 0 && !foundSymbol && Objects.equals(String.valueOf(c), symbol)) {
                 foundSymbol = true;
                 index++;
                 continue;
             }
 
-            if (!foundSymbol) leftHandSide.append(expr.charAt(index));
-            else rightHandSide.append(expr.charAt(index));
+            if (!foundSymbol) leftHandSide.append(c);
+            else rightHandSide.append(c);
 
             index++;
         }
@@ -76,8 +77,22 @@ public abstract class Splitter {
     public static List<Expression> singleBLSplit(Expression expression, List<String> operators) {
         String expr = expression.getExpression();
         if (expr.startsWith("(") && expr.endsWith(")")) {
-            expr = expr.substring(1, expr.length() - 1);
-            expression = new Expression(expr);
+            int balance = 0;
+            boolean valid = true;
+
+            for (int i = 0; i < expr.length(); i++) {
+                if (expr.charAt(i) == '(') balance++;
+                else if (expr.charAt(i) == ')') balance--;
+
+                if (balance == 0 && i < expr.length() - 1) {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid) {
+                expr = expr.substring(1, expr.length() - 1);
+                expression = new Expression(expr);
+            }
         }
 
         for (String operator : operators) {
@@ -87,7 +102,6 @@ public abstract class Splitter {
                 return expressions;
             }
         }
-
         return new ArrayList<>();
     }
 
