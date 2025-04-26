@@ -1,14 +1,16 @@
 package me.dariansandru.numeralis.utils.algorithms;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.parser.OperatorRegistry;
-import me.dariansandru.numeralis.utils.structures.TruthTable;
+import me.dariansandru.numeralis.utils.structures.logic.Clause;
+import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 
 public abstract class LogicHelper {
 
@@ -129,5 +131,26 @@ public abstract class LogicHelper {
         }
 
         return new Expression(expressionString.toString());
+    }
+
+    public static List<Clause> getClausesFromCNF(Expression expression) {
+        List<Clause> clauses = new ArrayList<>();
+        String expressionString = expression.toString();
+        List<String> disjunctions = Arrays.stream(expressionString.split("∧"))
+                                    .map(String::trim)
+                                    .collect(Collectors.toList());
+
+        for (String disjunction : disjunctions) {
+            Expression disjunctionExpression = new Expression(disjunction);
+            Clause newClause = new Clause(disjunctionExpression);
+            clauses.add(newClause);
+        }
+
+        return clauses;
+    }
+
+    public static String negateLiteral(String literal) {
+        if (literal.charAt(0) == '¬') return String.valueOf(literal.charAt(1));
+        else return ("¬" + literal);
     }
 }

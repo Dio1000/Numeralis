@@ -1,4 +1,4 @@
-package me.dariansandru.numeralis.utils.structures;
+package me.dariansandru.numeralis.utils.structures.logic;
 
 public class AST<T> {
     private final ASTNode<T> root;

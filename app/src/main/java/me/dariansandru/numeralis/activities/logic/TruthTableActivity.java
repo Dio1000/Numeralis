@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ import java.util.Map;
 import me.dariansandru.numeralis.R;
 import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.parser.Expression;
-import me.dariansandru.numeralis.utils.structures.TruthTable;
+import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 
 public class TruthTableActivity extends AppCompatActivity {
 
