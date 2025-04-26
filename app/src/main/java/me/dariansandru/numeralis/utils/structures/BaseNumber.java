@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import me.dariansandru.numeralis.utils.algorithms.BaseConverter;
 
+/**
+ * Using an instantiation of this class will allow the user to use numbers that may not be decimal.
+ */
 public class BaseNumber {
     private String representation;
     private int base;

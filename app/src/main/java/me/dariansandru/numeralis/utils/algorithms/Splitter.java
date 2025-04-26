@@ -5,10 +5,26 @@ import java.util.List;
 import java.util.Objects;
 
 import me.dariansandru.numeralis.parser.Expression;
-import me.dariansandru.numeralis.parser.OperatorRegistry;
 
+/**
+ * Using this abstract utility class will allow the user to parse and split expressions.
+ */
 public abstract class Splitter {
 
+    /**
+     * Splits an expression into two subexpressions based on the first occurrence
+     * of the given symbol at the base level (not inside parentheses).
+     *
+     * <pre>
+     * Example:
+     * Given expression: (A ∨ B) ∧ (C ∨ D)
+     * Splitting on '∧' results in two expressions: (A ∨ B), (C ∨ D)
+     * </pre>
+     *
+     * @param expression Expression to be split.
+     * @param symbol Symbol (operator) at which to split the expression.
+     * @return A list of two subexpressions split at the given symbol.
+     */
     public static List<Expression> splitExpression(Expression expression, String symbol) {
         List<Expression> expressions = new ArrayList<>();
         String expr = expression.getExpression();
@@ -42,6 +58,21 @@ public abstract class Splitter {
         return expressions;
     }
 
+    /**
+     * Splits an expression into operator and two subexpressions based on the first operator
+     * that appears at the base level from a given list of operators.
+     *
+     * <pre>
+     * Example:
+     * Given expression: (A ∨ B) ∧ (C ∨ D)
+     * Operators list: ["∧", "∨"]
+     * Result: ["∧", (A ∨ B), (C ∨ D)]
+     * </pre>
+     *
+     * @param expression Expression to split.
+     * @param operators List of operators to split on.
+     * @return A list containing the operator first, then the two subexpressions, or an empty list if no split occurs.
+     */
     public static List<Expression> singleBLSplit(Expression expression, List<String> operators) {
         String expr = expression.getExpression();
         if (expr.startsWith("(") && expr.endsWith(")")) {
@@ -60,6 +91,22 @@ public abstract class Splitter {
         return new ArrayList<>();
     }
 
+    /**
+     * Recursively splits an expression into a nested list based on the operators provided,
+     * creating a tree-like structure where each node is an operator and leaves are literals.
+     *
+     * <pre>
+     * Example:
+     * Given expression: (A ∨ B) ∧ (C ∨ D)
+     * Operators list: ["∧", "∨"]
+     * Result:
+     * ["∧", ["∨", "A", "B"], ["∨", "C", "D"]]
+     * </pre>
+     *
+     * @param expression Expression to recursively split.
+     * @param operators List of operators to split on.
+     * @return A nested List of Strings and Lists representing the expression structure.
+     */
     public static List<Object> recursiveSplit(Expression expression, List<String> operators) {
         List<Expression> split = singleBLSplit(expression, operators);
         if (split.isEmpty()) return List.of(expression.getExpression());

@@ -10,6 +10,7 @@
     android:padding="24dp"
     tools:context=".activities.math.BaseConversionActivity">
 
+    <!-- Back Button -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="40dp"/>
 
+    <!-- Input Number -->
     <EditText
         android:id="@+id/inputNumber"
         android:layout_width="0dp"
@@ -38,6 +40,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
+    <!-- From Base Label -->
     <TextView
         android:id="@+id/fromBaseLabel"
         android:layout_width="wrap_content"
@@ -49,16 +52,21 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"/>
 
+    <!-- From Base Spinner - Simplified -->
     <Spinner
         android:id="@+id/fromBaseSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#1E1E1E"
+        android:background="@android:drawable/btn_dropdown"
+        android:popupBackground="#1E1E1E"
+        android:spinnerMode="dropdown"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintTop_toBottomOf="@id/fromBaseLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
+    <!-- To Base Label -->
     <TextView
         android:id="@+id/toBaseLabel"
         android:layout_width="wrap_content"
@@ -70,16 +78,21 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"/>
 
+    <!-- To Base Spinner - Simplified -->
     <Spinner
         android:id="@+id/toBaseSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#1E1E1E"
+        android:background="@android:drawable/btn_dropdown"
+        android:popupBackground="#1E1E1E"
+        android:spinnerMode="dropdown"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintTop_toBottomOf="@id/toBaseLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
+    <!-- Convert Button -->
     <Button
         android:id="@+id/convertButton"
         android:layout_width="0dp"
@@ -94,6 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
 
+    <!-- Output View -->
     <TextView
         android:id="@+id/outputView"
         android:layout_width="0dp"

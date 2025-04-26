@@ -1,5 +1,9 @@
 package me.dariansandru.numeralis.parser.operations;
 
+/**
+ * Using an instantiation of this class will allow the user to evaluate
+ * two floating point numbers using standard binary mathematical addition.
+ */
 public class AddOperator implements Operator {
 
     private final String name;

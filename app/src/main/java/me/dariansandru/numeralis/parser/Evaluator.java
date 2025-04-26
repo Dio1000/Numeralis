@@ -4,8 +4,23 @@ import me.dariansandru.numeralis.parser.operations.OperatorFactory;
 
 import java.util.List;
 
-public class Evaluator {
+/**
+ * Using this abstract utility class will allow the user to evaluate standard mathematical
+ * and logic expressions.
+ */
+public abstract class Evaluator {
 
+    /**
+     * Evaluates the parsed version of an expression in a nested list format.
+     * <pre>
+     *     Example:
+     *     An example of a nested list is: [^, [+, [-, 3, 2], 5], 2]
+     *     Which has the equivalent in standard infix mathematical notation: (5 + (3 - 2))^2
+     *     And evaluates to: 36
+     * </pre>
+     * @param parsed A list of objects containing the nested lists from a mathematical expression.
+     * @return The result of the evaluation of the expression.
+     */
     public static double evaluate(List<Object> parsed) {
         if (parsed == null || parsed.isEmpty()) {
             throw new IllegalArgumentException("Empty or null expression");
@@ -39,6 +54,11 @@ public class Evaluator {
         return OperatorFactory.getOperator(operator).evaluate(leftVal, rightVal);
     }
 
+    /**
+     * Auxiliary function to check if operands are standard mathematical floating point numbers.
+     * @param operand Object containing the operand that is parsed.
+     * @return The value (double) of an operand if it is valid.
+     */
     private static double parseOperand(Object operand) {
         if (operand == null) throw new IllegalArgumentException("Operand cannot be null");
 
@@ -50,6 +70,25 @@ public class Evaluator {
         }
     }
 
+    /**
+     * Transforms a nested list containing the parsed version of a logical expression
+     * into its equivalent arithmetic expression.
+     * <pre>
+     *     The following formulas will be used:
+     *     ¬P - 1 - P
+     *     P ∧ Q - P * Q
+     *     P ∨ Q - P + Q - P * Q
+     *     P ⇒ Q - 1 - P + P * Q
+     *     P ⇔ Q - 1 - (P - Q)^2
+     *
+     *     Example:
+     *     An example of a nested list is: [⇒, [P], [∧, Q, R]]
+     *     Which has the equivalent in standard infix mathematical notation: P ⇒ (Q ∧ R)
+     *     And the equivalent in standard infix mathematical arithmetic: 1 - P + P * (Q * R)
+     * </pre>
+     * @param node A nested list containing the parsed version of a logic expression.
+     * @return A string containing the arithmetic equivalent in standard mathematical notation of the expression.
+     */
     public static String transform(Object node) {
         if (node == null) {
             throw new IllegalArgumentException("Node cannot be null");
@@ -84,6 +123,11 @@ public class Evaluator {
         }
     }
 
+    /**
+     * Auxiliary function to parse operands, organize parenthesis and correctly parse negated operands.
+     * @param s String containing the operand.
+     * @return The correctly parsed arithmetic version of the operand.
+     */
     private static String formatOperand(String s) {
         if (s == null || s.trim().isEmpty()) throw new IllegalArgumentException("Operand cannot be empty");
         s = s.trim();
@@ -101,10 +145,20 @@ public class Evaluator {
         return isSimpleOperand(s) ? s : "(" + s + ")";
     }
 
+    /**
+     * Formats the expression to have parenthesis.
+     * @param expr Expression to format.
+     * @return String containing the formatted expression.
+     */
     private static String formatOperation(String expr) {
         return "(" + expr + ")";
     }
 
+    /**
+     * Checks if an operands contains a single literal.
+     * @param s String representing the operand.
+     * @return True if the operand contains a single literal, false otherwise.
+     */
     private static boolean isSimpleOperand(String s) {
         return s.matches("^[A-Za-z0-9]+$") && !s.contains(" ");
     }

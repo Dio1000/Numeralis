@@ -9,6 +9,10 @@ import org.reflections.Reflections;
 
 import me.dariansandru.numeralis.parser.operations.Operator;
 
+/**
+ * Using this abstract utility class will allow the user to access all the standard notation
+ * mathematical or logic notations used as operators.
+ */
 public abstract class OperatorRegistry {
 
     private static final Reflections reflections = new Reflections("me.dariansandru.numeralis.parser", "me.dariansandru.numeralis.parser.operations");

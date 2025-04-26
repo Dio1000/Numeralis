@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
 
+/**
+ * Using an instantiation of this class will allow the user to work with a clause (a disjunction of literals).
+ */
 public class Clause {
     private final List<String> literals;
 

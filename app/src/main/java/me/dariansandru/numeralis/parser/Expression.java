@@ -2,6 +2,9 @@ package me.dariansandru.numeralis.parser;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Using an instantiation of this class will allow the user to create an expression.
+ */
 public class Expression {
     private final String expr;
 

@@ -3,6 +3,10 @@ package me.dariansandru.numeralis.parser.operations;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Using this abstract utility class will allow the user to generate a new instance of
+ * the Operator interface using the symbol of the desired operation.
+ */
 public abstract class OperatorFactory {
     private static final Map<String, Operator> OPERATORS = new HashMap<>();
 
@@ -13,7 +17,6 @@ public abstract class OperatorFactory {
         OPERATORS.put("/", new DivOperator());
         OPERATORS.put("%", new ModOperator());
         OPERATORS.put("^", new PowOperator());
-        OPERATORS.put("sqrt", new SqrtOperator());
     }
 
     public static Operator getOperator(String symbol) {

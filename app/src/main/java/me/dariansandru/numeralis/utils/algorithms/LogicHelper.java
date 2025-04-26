@@ -12,8 +12,22 @@ import me.dariansandru.numeralis.parser.OperatorRegistry;
 import me.dariansandru.numeralis.utils.structures.logic.Clause;
 import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 
+/**
+ * Using this abstract utility class allows the user to take advantage of multiple functions
+ * used for CNF / DNF conversion and clauses for the SAT problem.
+ */
 public abstract class LogicHelper {
 
+    /**
+     * Gets the literals from a given expression.
+     * <pre>
+     *     Example:
+     *     For expression: ((A1 ∨ A2) ∧ B) ⇔ C
+     *     The extracted literals are: A1, A2, B, C
+     * </pre>
+     * @param expression The expression to extract the literals from.
+     * @return A list of Strings representing the found literals.
+     */
     public static List<String> getLiterals(Expression expression) {
         String expressionString = expression.toString();
         List<String> literals = new ArrayList<>();
@@ -24,28 +38,45 @@ public abstract class LogicHelper {
             if (!literal.isEmpty() && !literals.contains(literal)) {
                 literals.add(literal);
                 index += literal.length();
-            } else {
-                index++;
             }
+            else index++;
         }
 
         return literals;
     }
 
+    /**
+     * Gets the first literal from an expression String.
+     * @param s String containing an expression.
+     * @return The first extracted literal (or an empty String if none was found).
+     */
     public static String getLiteral(String s) {
         StringBuilder literal = new StringBuilder();
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
+
             if (literal.toString().isEmpty() && Character.isLetter(c)) literal.append(c);
             else if (!literal.toString().isEmpty() && Character.isLetterOrDigit(c)) literal.append(c);
-
             else break;
         }
 
         return literal.toString();
     }
 
+    /**
+     * Creates an interpretable expression (contains the actual values of literals).
+     * <pre>
+     *     Example:
+     *     For expression: ((A1 ∨ A2) ∧ B) ⇒ C
+     *     Will be converted into the arithmetic expression: 1 - ((A1 + A2 - A1 * A2) * B) + ((A1 + A2 - A1 * A2) * B) * C
+     *     And the table: A1 - 1, A2 - 0, B - 0, C - 1
+     *     The returned interpretable string is: 1 - ((1 + 0 - 1 * 0) * 0) + ((1 + 0 - 1 * 0) * 0) * 1
+     * </pre>
+     * @param expression The expression in standard logic notation to convert.
+     * @param table Mapping from all literals to their values under a given interpretation.
+     * @return String containing new interpretable expression.
+     */
     public static Expression getInterpretableExpression(Expression expression, Map<String, String> table) {
         List<String> operators = OperatorRegistry.getLogicalOperatorSymbols();
         List<Object> result = Splitter.recursiveSplit(expression, operators);
@@ -62,12 +93,23 @@ public abstract class LogicHelper {
         return new Expression(interpretableStringBuilder.toString());
     }
 
+    /**
+     * Evaluates an expression in standard logic notation under a given interpretation.
+     * @param expression Expression to evaluate.
+     * @param table Mapping from all literals to their values under a given interpretation.
+     * @return Integer representing the truth value of the expression under the given interpretation.
+     */
     public static int evaluateExpression(Expression expression, Map<String, String> table) {
         Expression interpretableExpression = getInterpretableExpression(expression, table);
         List<String> operators = OperatorRegistry.getOperatorSymbols();
         return (int) Evaluator.evaluate(Splitter.recursiveSplit(interpretableExpression, operators));
     }
 
+    /**
+     * Convert an instance of TruthTable to an expression in CNF (Conjunctive Normal Form).
+     * @param truthTable Truth table of the expression.
+     * @return An expression in CNF equivalent to the expression given by the truth table.
+     */
     public static Expression truthTableToCNF(TruthTable truthTable) {
         List<String> literals = truthTable.getLiterals();
         List<List<String>> rows = truthTable.getRows();
@@ -100,7 +142,11 @@ public abstract class LogicHelper {
         return new Expression(expressionString.toString());
     }
 
-
+    /**
+     * Convert an instance of TruthTable to an expression in DNF (Disjunctive Normal Form).
+     * @param truthTable Truth table of the expression.
+     * @return An expression in DNF equivalent to the expression given by the truth table.
+     */
     public static Expression truthTableToDNF(TruthTable truthTable) {
         List<String> literals = truthTable.getLiterals();
         List<List<String>> rows = truthTable.getRows();
@@ -133,6 +179,11 @@ public abstract class LogicHelper {
         return new Expression(expressionString.toString());
     }
 
+    /**
+     * Creates a list of clauses from a given expression in CNF (Conjunctive Normal Form).
+     * @param expression Expression in CNF to get the clauses from.
+     * @return A list of clauses that are equivalent to the expression.
+     */
     public static List<Clause> getClausesFromCNF(Expression expression) {
         List<Clause> clauses = new ArrayList<>();
         String expressionString = expression.toString();
@@ -149,6 +200,11 @@ public abstract class LogicHelper {
         return clauses;
     }
 
+    /**
+     * Auxiliary function to negate a literal (A <- ¬A, ¬A <- A)
+     * @param literal Literal to negate.
+     * @return String representing the new negated literal.
+     */
     public static String negateLiteral(String literal) {
         if (literal.charAt(0) == '¬') return String.valueOf(literal.charAt(1));
         else return ("¬" + literal);

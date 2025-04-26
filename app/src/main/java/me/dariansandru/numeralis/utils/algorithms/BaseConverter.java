@@ -2,10 +2,19 @@ package me.dariansandru.numeralis.utils.algorithms;
 
 import me.dariansandru.numeralis.utils.structures.BaseNumber;
 
+/**
+ * Using this abstract utility class will allow the user to convert instances of the
+ * BaseNumber class from one base to another.
+ */
 public abstract class BaseConverter {
 
     private static final int CHARACTER_GAP = 'a' - 'A';
 
+    /**
+     * Auxiliary function to get the numeric value of a character (including ASCII characters A-Z).
+     * @param character Character to get the numeric value of.
+     * @return The numeric value of the character.
+     */
     private static int getValue(Character character){
         if ('0' <= character && character <= '9'){
             return Character.getNumericValue(character);
@@ -16,6 +25,11 @@ public abstract class BaseConverter {
         return -1;
     }
 
+    /**
+     * Auxiliary function to get the character from a numeric value.
+     * @param number Number to get the character from.
+     * @return Character corresponding to the numeric value.
+     */
     private static char getChar(int number) {
         if (0 <= number && number <= 9) {
             return (char) ('0' + number);
@@ -26,7 +40,11 @@ public abstract class BaseConverter {
         else throw new IllegalArgumentException("Number out of range for base conversion: " + number);
     }
 
-
+    /**
+     * Converts an instance of BaseNumber from any base to base10.
+     * @param number Instance of BaseNumber to convert to base10.
+     * @return The numeric value in base10 of the number.
+     */
     public static long convertToDecimal(BaseNumber number){
         String representation = number.getRepresentation();
         int base = number.getBase();
@@ -45,7 +63,12 @@ public abstract class BaseConverter {
         return total;
     }
 
-    // This function assumes that number is in base 10.
+    /**
+     * Converts an instance of BaseNumber to a given base. This function assumes the number is in base10.
+     * @param number Instance of BaseNumber to convert.
+     * @param base The base to convert the number to.
+     * @return The result of the conversion as an instance of BaseNumber.
+     */
     public static BaseNumber convertToBase(BaseNumber number, int base) {
         String representation = number.getRepresentation();
         if (representation == null) return new BaseNumber("NaN", -1);

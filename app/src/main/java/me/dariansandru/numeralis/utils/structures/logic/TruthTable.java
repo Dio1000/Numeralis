@@ -10,7 +10,9 @@ import java.util.Map;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
 
-
+/**
+ * Using an instantiation of this class will allow the user to create a truth table for a given expression.
+ */
 public class TruthTable {
     public final Expression expression;
     public final List<String> literals;
