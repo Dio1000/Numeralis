@@ -1,9 +1,12 @@
 package me.dariansandru.numeralis.activities.logic;
 
+import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import me.dariansandru.numeralis.R;
+import me.dariansandru.numeralis.parser.Expression;
+import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 
 public class LogicalEquivalenceActivity extends AppCompatActivity {
 
@@ -45,6 +50,43 @@ public class LogicalEquivalenceActivity extends AppCompatActivity {
         btnClr = findViewById(R.id.btnClr);
 
         setupButtonListeners();
+
+        EditText formulaInput1 = findViewById(R.id.formulaInput1);
+        EditText formulaInput2 = findViewById(R.id.formulaInput2);
+
+        findViewById(R.id.checkEquivalenceButton).setOnClickListener(v -> {
+            try {
+                String expressionString1 = formulaInput1.getText().toString().trim();
+                String expressionString2 = formulaInput2.getText().toString().trim();
+
+                if (expressionString1.isEmpty() || expressionString2.isEmpty()) {
+                    throw new IllegalArgumentException("Both formulas must be entered");
+                }
+
+                Expression expression1 = new Expression(expressionString1);
+                Expression expression2 = new Expression(expressionString2);
+
+                TruthTable truthTable1 = new TruthTable(expression1);
+                TruthTable truthTable2 = new TruthTable(expression2);
+
+                boolean isEquivalent = LogicHelper.areEquivalent(truthTable1, truthTable2);
+
+                TextView resultView = findViewById(R.id.equivalenceResult);
+                if (isEquivalent) {
+                    resultView.setText("EQUIVALENT");
+                    resultView.setTextColor(getResources().getColor(android.R.color.holo_green_light));
+                } else {
+                    resultView.setText("NOT EQUIVALENT");
+                    resultView.setTextColor(getResources().getColor(android.R.color.holo_red_light));
+                }
+
+            } catch (Exception e) {
+                TextView resultView = findViewById(R.id.equivalenceResult);
+                resultView.setText("Error: " + e.getMessage());
+                resultView.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
+            }
+        });
+
     }
 
     private void setupButtonListeners() {

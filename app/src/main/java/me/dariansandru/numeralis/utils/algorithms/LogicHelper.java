@@ -209,4 +209,17 @@ public abstract class LogicHelper {
         if (literal.charAt(0) == '¬') return String.valueOf(literal.charAt(1));
         else return ("¬" + literal);
     }
+
+    /**
+     * Checks whether the truth tables corresponding to two expressions are equivalent.
+     * @param truthTable1 Truth table corresponding to first expression.
+     * @param truthTable2 Truth table corresponding to second expression.
+     * @return True if they are equivalent, false otherwise.
+     */
+    public static boolean areEquivalent(TruthTable truthTable1, TruthTable truthTable2) {
+        List<String> column1 = truthTable1.getLastColumn();
+        List<String> column2 = truthTable2.getLastColumn();
+
+        return column1.equals(column2);
+    }
 }

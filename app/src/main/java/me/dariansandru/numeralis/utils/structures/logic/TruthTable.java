@@ -75,6 +75,25 @@ public class TruthTable {
         return rows;
     }
 
+    public List<String> getColumnByIndex(int index) {
+        List<String> column = new ArrayList<>();
+
+        if (index < 0 || index >= literals.size()) {
+            throw new IndexOutOfBoundsException("Column index " + index + " is out of bounds");
+        }
+
+        String literalName = literals.get(index);
+        for (Map<String, String> row : table) {
+            column.add(row.get(literalName));
+        }
+
+        return column;
+    }
+
+    public List<String> getLastColumn() {
+        return this.getColumnByIndex(this.literals.size() - 1);
+    }
+
     public List<String> getLiterals() {
         return literals;
     }
