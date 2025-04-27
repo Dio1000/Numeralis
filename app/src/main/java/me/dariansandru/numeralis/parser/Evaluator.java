@@ -34,7 +34,9 @@ public abstract class Evaluator {
                     return Double.parseDouble((String) single);
                 }
                 catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid number format: " + single);
+                    String err = isSimpleOperand(String.valueOf(single)) ?
+                            " is not a decimal number." : " is not a valid expression.";
+                    throw new IllegalArgumentException(single + err);
                 }
             }
             else if (single instanceof List) return evaluate((List<Object>) single);

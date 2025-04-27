@@ -63,7 +63,7 @@ public class ArithmeticActivity extends AppCompatActivity {
                 outputView.setText("Result: " + Evaluator.evaluate(result));
 
             } catch (Exception e) {
-                outputView.setText("Error: " + e.getMessage());
+                outputView.setText(e.getMessage());
             }
         });
 

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +20,7 @@ public class BitwiseActivity extends AppCompatActivity {
     private TextView binaryResult, decimalResult, hexResult;
     private EditText inputNumber1, inputNumber2;
     private LinearLayout resultSection;
+    private TextView resultLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,13 @@ public class BitwiseActivity extends AppCompatActivity {
         decimalResult = findViewById(R.id.resultDecimal);
         hexResult = findViewById(R.id.resultHex);
         resultSection = findViewById(R.id.resultSection);
+        resultLabel = findViewById(R.id.resultLabel);
+
+        resultLabel.setText("Result will appear here");
+        binaryResult.setText("");
+        decimalResult.setText("");
+        hexResult.setText("");
+        resultSection.setVisibility(View.VISIBLE);
 
         findViewById(R.id.andButton).setOnClickListener(v -> computeAND());
         findViewById(R.id.orButton).setOnClickListener(v -> computeOR());
@@ -45,83 +52,74 @@ public class BitwiseActivity extends AppCompatActivity {
     }
 
     private void computeAND() {
-        try {
-            String num1 = inputNumber1.getText().toString();
-            String num2 = inputNumber2.getText().toString();
-
-            if (!BitwiseHelper.isBinaryNumber(num1)) {
-                throw new IllegalArgumentException("First number is not binary");
-            }
-            if (!BitwiseHelper.isBinaryNumber(num2)) {
-                throw new IllegalArgumentException("Second number is not binary");
-            }
-
-            String binary = BitwiseHelper.bitwiseAND(num1, num2);
-            BaseNumber binaryNum = new BaseNumber(binary, 2);
-            BaseNumber decimalNum = new BaseNumber(String.valueOf(BaseConverter.convertToDecimal(binaryNum)), 10);
-            BaseNumber hexNum = new BaseNumber(String.valueOf(BaseConverter.convertToBase(decimalNum, 16)), 16);
-
-            resultSection.setVisibility(View.VISIBLE);
-            binaryResult.setText(binary);
-            decimalResult.setText(decimalNum.getRepresentation());
-            hexResult.setText(hexNum.getRepresentation());
-        }
-        catch (Exception e) {
-            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        computeOperation(BitwiseHelper::bitwiseAND);
     }
 
     private void computeOR() {
-        try {
-            String num1 = inputNumber1.getText().toString();
-            String num2 = inputNumber2.getText().toString();
-
-            if (!BitwiseHelper.isBinaryNumber(num1)) {
-                throw new IllegalArgumentException("First number is not binary");
-            }
-            if (!BitwiseHelper.isBinaryNumber(num2)) {
-                throw new IllegalArgumentException("Second number is not binary");
-            }
-
-            String binary = BitwiseHelper.bitwiseOR(num1, num2);
-            BaseNumber binaryNum = new BaseNumber(binary, 2);
-            BaseNumber decimalNum = new BaseNumber(String.valueOf(BaseConverter.convertToDecimal(binaryNum)), 10);
-            BaseNumber hexNum = new BaseNumber(String.valueOf(BaseConverter.convertToBase(decimalNum, 16)), 16);
-
-            resultSection.setVisibility(View.VISIBLE);
-            binaryResult.setText(binary);
-            decimalResult.setText(decimalNum.getRepresentation());
-            hexResult.setText(hexNum.getRepresentation());
-        }
-        catch (Exception e) {
-            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        computeOperation(BitwiseHelper::bitwiseOR);
     }
 
     private void computeXOR() {
+        computeOperation(BitwiseHelper::bitwiseXOR);
+    }
+
+    private void computeOperation(BitwiseOperation operation) {
         try {
             String num1 = inputNumber1.getText().toString();
             String num2 = inputNumber2.getText().toString();
 
-            if (!BitwiseHelper.isBinaryNumber(num1)) {
-                throw new IllegalArgumentException("First number is not binary");
-            }
-            if (!BitwiseHelper.isBinaryNumber(num2)) {
-                throw new IllegalArgumentException("Second number is not binary");
+            if (num1.isEmpty() || num2.isEmpty()) {
+                showError("Please enter both binary numbers");
+                return;
             }
 
-            String binary = BitwiseHelper.bitwiseXOR(num1, num2);
+            if (!BitwiseHelper.isBinaryNumber(num1)) {
+                showError("First number is not valid binary");
+                return;
+            }
+
+            if (!BitwiseHelper.isBinaryNumber(num2)) {
+                showError("Second number is not valid binary");
+                return;
+            }
+
+            String binary = operation.apply(num1, num2);
             BaseNumber binaryNum = new BaseNumber(binary, 2);
             BaseNumber decimalNum = new BaseNumber(String.valueOf(BaseConverter.convertToDecimal(binaryNum)), 10);
             BaseNumber hexNum = new BaseNumber(String.valueOf(BaseConverter.convertToBase(decimalNum, 16)), 16);
 
-            resultSection.setVisibility(View.VISIBLE);
-            binaryResult.setText(binary);
-            decimalResult.setText(decimalNum.getRepresentation());
-            hexResult.setText(hexNum.getRepresentation());
+            showResult(binary, decimalNum.getRepresentation(), hexNum.getRepresentation());
+
+        } catch (Exception e) {
+            showError("Invalid operation: " + e.getMessage());
         }
-        catch (Exception e) {
-            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+    }
+
+    private void showResult(String binary, String decimal, String hex) {
+        resultSection.setVisibility(View.VISIBLE);
+        resultLabel.setText("Result");
+        binaryResult.setText(binary);
+        decimalResult.setText(decimal);
+        hexResult.setText(hex);
+
+        inputNumber1.setError(null);
+        inputNumber2.setError(null);
+    }
+
+    private void showError(String message) {
+        resultSection.setVisibility(View.VISIBLE);
+        resultLabel.setText(message);
+        binaryResult.setText("");
+        decimalResult.setText("");
+        hexResult.setText("");
+
+        if (inputNumber1.getText().toString().isEmpty()) inputNumber1.setError("Required");
+        if (inputNumber2.getText().toString().isEmpty()) inputNumber2.setError("Required");
+
+    }
+
+    @FunctionalInterface
+    private interface BitwiseOperation {
+        String apply(String num1, String num2);
     }
 }

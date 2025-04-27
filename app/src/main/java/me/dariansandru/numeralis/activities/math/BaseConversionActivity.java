@@ -74,11 +74,14 @@ public class BaseConversionActivity extends AppCompatActivity {
         int toBase = (int) toBaseSpinner.getSelectedItem();
 
         try {
-            BaseNumber baseNumber = new BaseNumber(number, fromBase);
-            BaseNumber decimalNumber = new BaseNumber(String.valueOf(baseNumber.toDecimal()), 10);
-            BaseNumber convertedNumber = BaseConverter.convertToBase(decimalNumber, toBase);
+            if (!BaseConverter.isCorrectBase(number, fromBase)) outputView.setText(number + " is not in base " + fromBase + ".");
+            else {
+                BaseNumber baseNumber = new BaseNumber(number, fromBase);
+                BaseNumber decimalNumber = new BaseNumber(String.valueOf(baseNumber.toDecimal()), 10);
+                BaseNumber convertedNumber = BaseConverter.convertToBase(decimalNumber, toBase);
 
-            outputView.setText("Result: " + convertedNumber.getRepresentation());
+                outputView.setText("Result: " + convertedNumber.getRepresentation());
+            }
         } catch (Exception e) {
             outputView.setText("Invalid input for the selected base.");
         }

@@ -41,6 +41,24 @@ public abstract class BaseConverter {
     }
 
     /**
+     * Auxiliary function to check whether a given number in String format can be in a given base.
+     * @param number String containing a number to check for.
+     * @param base Base to check for.
+     * @return True if the number can be in the given string, false otherwise.
+     */
+    public static boolean isCorrectBase(String number, int base) {
+        char maxDigit = (base <= 10) ? (char) ('0' + (base - 1)) : getChar(base - 1);
+
+        int index = 0;
+        while (index < number.length()) {
+            if (number.charAt(index) > maxDigit) return false;
+            index++;
+        }
+
+        return true;
+    }
+
+    /**
      * Converts an instance of BaseNumber from any base to base10.
      * @param number Instance of BaseNumber to convert to base10.
      * @return The numeric value in base10 of the number.
