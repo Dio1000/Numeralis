@@ -17,8 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 import me.dariansandru.numeralis.R;
 import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.parser.Expression;
-import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
-import me.dariansandru.numeralis.utils.algorithms.SATSolver;
+import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
+import me.dariansandru.numeralis.utils.algorithms.logic.SATSolver;
 import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 
 public class SatisfiabilityActivity extends AppCompatActivity {

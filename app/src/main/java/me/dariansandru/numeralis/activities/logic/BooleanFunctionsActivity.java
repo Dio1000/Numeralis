@@ -19,7 +19,7 @@ import me.dariansandru.numeralis.activities.MainActivity;
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.parser.OperatorRegistry;
-import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
+import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
 import me.dariansandru.numeralis.utils.algorithms.Splitter;
 import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 

@@ -1,4 +1,4 @@
-package me.dariansandru.numeralis.utils.algorithms;
+package me.dariansandru.numeralis.utils.algorithms.logic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.parser.OperatorRegistry;
+import me.dariansandru.numeralis.utils.algorithms.Splitter;
 import me.dariansandru.numeralis.utils.structures.logic.Clause;
 import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 

@@ -43,7 +43,7 @@
             android:name=".activities.math.ProbabilityActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.math.CalculusActivity"
+            android:name=".activities.math.BitwiseActivity"
             android:exported="false" />
         <activity
             android:name=".activities.math.BaseConversionActivity"

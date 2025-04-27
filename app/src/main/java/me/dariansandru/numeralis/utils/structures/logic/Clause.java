@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import me.dariansandru.numeralis.parser.Expression;
-import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
+import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
 
 /**
  * Using an instantiation of this class will allow the user to work with a clause (a disjunction of literals).

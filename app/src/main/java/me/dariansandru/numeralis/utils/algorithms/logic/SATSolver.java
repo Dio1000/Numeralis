@@ -1,4 +1,4 @@
-package me.dariansandru.numeralis.utils.algorithms;
+package me.dariansandru.numeralis.utils.algorithms.logic;
 
 import java.util.ArrayList;
 import java.util.HashSet;

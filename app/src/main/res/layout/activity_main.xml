@@ -71,7 +71,7 @@
             android:id="@+id/btnCalculus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Calculus"
+            android:text="Bitwise Calculator"
             android:backgroundTint="#3700B3"
             android:textColor="#FFFFFF"
             android:textSize="20sp"

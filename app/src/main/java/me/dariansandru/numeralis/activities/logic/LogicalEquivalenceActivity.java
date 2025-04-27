@@ -1,6 +1,6 @@
 package me.dariansandru.numeralis.activities.logic;
 
-import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
+import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
 
 import android.os.Bundle;
 import android.view.View;

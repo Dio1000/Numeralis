@@ -13,4 +13,24 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:background">#1E1E1E</item>
     </style>
+
+    <style name="InputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">#BB86FC</item>
+        <item name="hintTextColor">#9E9E9E</item>
+        <item name="android:textColorHint">#9E9E9E</item>
+        <item name="boxBackgroundColor">#1E1E1E</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="OperationButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:backgroundTint">#3700B3</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:elevation">4dp</item>
+    </style>
 </resources>

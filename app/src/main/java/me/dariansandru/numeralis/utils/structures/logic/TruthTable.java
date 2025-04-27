@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.dariansandru.numeralis.parser.Expression;
-import me.dariansandru.numeralis.utils.algorithms.LogicHelper;
+import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
 
 /**
  * Using an instantiation of this class will allow the user to create a truth table for a given expression.
