@@ -1,5 +1,6 @@
 package me.dariansandru.numeralis.activities.logic;
 
+import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
 
 import android.os.Bundle;
@@ -55,12 +56,25 @@ public class LogicalEquivalenceActivity extends AppCompatActivity {
         EditText formulaInput2 = findViewById(R.id.formulaInput2);
 
         findViewById(R.id.checkEquivalenceButton).setOnClickListener(v -> {
+            TextView resultView = findViewById(R.id.equivalenceResult);
             try {
                 String expressionString1 = formulaInput1.getText().toString().trim();
                 String expressionString2 = formulaInput2.getText().toString().trim();
 
                 if (expressionString1.isEmpty() || expressionString2.isEmpty()) {
                     throw new IllegalArgumentException("Both formulas must be entered");
+                }
+
+                if (!Evaluator.isValidLogicExpression(expressionString1)) {
+                    resultView.setText("First expression is invalid.");
+                    resultView.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
+                    return;
+                }
+
+                if (!Evaluator.isValidLogicExpression(expressionString2)) {
+                    resultView.setText("Second expression is invalid.");
+                    resultView.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
+                    return;
                 }
 
                 Expression expression1 = new Expression(expressionString1);
@@ -71,7 +85,6 @@ public class LogicalEquivalenceActivity extends AppCompatActivity {
 
                 boolean isEquivalent = LogicHelper.areEquivalent(truthTable1, truthTable2);
 
-                TextView resultView = findViewById(R.id.equivalenceResult);
                 if (isEquivalent) {
                     resultView.setText("EQUIVALENT");
                     resultView.setTextColor(getResources().getColor(android.R.color.holo_green_light));
@@ -81,12 +94,10 @@ public class LogicalEquivalenceActivity extends AppCompatActivity {
                 }
 
             } catch (Exception e) {
-                TextView resultView = findViewById(R.id.equivalenceResult);
                 resultView.setText("Error: " + e.getMessage());
                 resultView.setTextColor(getResources().getColor(android.R.color.holo_orange_light));
             }
         });
-
     }
 
     private void setupButtonListeners() {

@@ -171,6 +171,32 @@ public abstract class Evaluator {
     }
 
     /**
+     * Auxiliary function to check if a string containing an expression contains only standard logic notation.
+     * @param s String containing the expression to check for.
+     * @return True if the expression is valid, false otherwise.
+     */
+    public static boolean isValidLogicExpression(String s) {
+        List<String> operators = OperatorRegistry.getLogicalOperatorSymbols();
+        operators.add("¬");
+        
+        int index = 0;
+        while (index < s.length()) {
+            String currentChar = String.valueOf(s.charAt(index));
+
+            if (!isSimpleOperand(currentChar) &&
+                    !operators.contains(currentChar) &&
+                    !currentChar.equals("(") &&
+                    !currentChar.equals(")") &&
+                    !currentChar.equals(" ")) {
+                return false;
+            }
+
+            index++;
+        }
+        return true;
+    }
+
+    /**
      * Formats the expression to have parenthesis.
      * @param expr Expression to format.
      * @return String containing the formatted expression.

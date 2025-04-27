@@ -78,6 +78,11 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
         computeButton.setOnClickListener(v -> {
             String input = expressionInput.getText().toString().trim();
             if (!input.isEmpty()) {
+                if (!Evaluator.isValidLogicExpression(input)) {
+                    resultBox.setText("Invalid logical expression.");
+                    return;
+                }
+
                 List<String> operators = OperatorRegistry.getLogicalOperatorSymbols();
                 Expression expression = new Expression(input);
                 List<Object> result = Splitter.recursiveSplit(expression, operators);
@@ -97,9 +102,15 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
         Button cnfButton = findViewById(R.id.cnfButton);
         EditText cnfBox = findViewById(R.id.cnfResult);
 
+
         cnfButton.setOnClickListener(v -> {
             String input = expressionInput.getText().toString().trim();
             if (!input.isEmpty()) {
+                if (!Evaluator.isValidLogicExpression(input)) {
+                    cnfBox.setText("Invalid logical expression.");
+                    return;
+                }
+
                 Expression expression = new Expression(input);
                 TruthTable truthTable = new TruthTable(expression);
                 Expression cnfExpression = LogicHelper.truthTableToCNF(truthTable);
@@ -116,6 +127,11 @@ public class BooleanFunctionsActivity extends AppCompatActivity {
         dnfButton.setOnClickListener(v -> {
             String input = expressionInput.getText().toString().trim();
             if (!input.isEmpty()) {
+                if (!Evaluator.isValidLogicExpression(input)) {
+                    dnfBox.setText("Invalid logical expression.");
+                    return;
+                }
+
                 Expression expression = new Expression(input);
                 TruthTable truthTable = new TruthTable(expression);
                 Expression dnfExpression = LogicHelper.truthTableToDNF(truthTable);

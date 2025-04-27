@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import me.dariansandru.numeralis.R;
 import me.dariansandru.numeralis.activities.MainActivity;
+import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.utils.algorithms.logic.LogicHelper;
 import me.dariansandru.numeralis.utils.algorithms.logic.SATSolver;
@@ -25,15 +25,20 @@ public class SatisfiabilityActivity extends AppCompatActivity {
 
     private EditText formulaInput;
     private EditText clauseInput;
-    private LinearLayout resultContainer;
-    private TextView resultValue;
-    private TextView errorMessage;
+    private TextView resultDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_satisfiability);
+
+        formulaInput = findViewById(R.id.formulaInput);
+        clauseInput = findViewById(R.id.clausesInput);
+        resultDisplay = findViewById(R.id.resultDisplay);
+
+        resultDisplay.setVisibility(View.GONE);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -46,12 +51,6 @@ public class SatisfiabilityActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
-        formulaInput = findViewById(R.id.formulaInput);
-        clauseInput = findViewById(R.id.clausesInput);
-        resultContainer = findViewById(R.id.resultContainer);
-        resultValue = findViewById(R.id.resultValue);
-        errorMessage = findViewById(R.id.errorMessage);
 
         View.OnClickListener insertSymbolListener = v -> {
             View currentFocus = getCurrentFocus();
@@ -71,18 +70,14 @@ public class SatisfiabilityActivity extends AppCompatActivity {
         findViewById(R.id.btnNot).setOnClickListener(insertSymbolListener);
         findViewById(R.id.btnImplies).setOnClickListener(insertSymbolListener);
         findViewById(R.id.btnIff).setOnClickListener(insertSymbolListener);
-        findViewById(R.id.btnClrFormula).setOnClickListener(v -> {
-            formulaInput.setText("");
-        });
+        findViewById(R.id.btnClrFormula).setOnClickListener(v -> formulaInput.setText(""));
 
         findViewById(R.id.btnAndClause).setOnClickListener(insertSymbolListener);
         findViewById(R.id.btnOrClause).setOnClickListener(insertSymbolListener);
         findViewById(R.id.btnNotClause).setOnClickListener(insertSymbolListener);
         findViewById(R.id.btnImpliesClause).setOnClickListener(insertSymbolListener);
         findViewById(R.id.btnIffClause).setOnClickListener(insertSymbolListener);
-        findViewById(R.id.btnClrClause).setOnClickListener(v -> {
-            clauseInput.setText("");
-        });
+        findViewById(R.id.btnClrClause).setOnClickListener(v -> clauseInput.setText(""));
 
         Button computeFormulaButton = findViewById(R.id.checkFormulaButton);
         Button computeClauseButton = findViewById(R.id.checkClausesButton);
@@ -94,56 +89,57 @@ public class SatisfiabilityActivity extends AppCompatActivity {
     private void checkFormula() {
         String expressionString = formulaInput.getText().toString().trim();
         if (expressionString.isEmpty()) {
-            showError("Please enter a formula.");
+            showError("Please enter a formula");
             return;
         }
 
         try {
-            Expression expression = new Expression(expressionString);
-            TruthTable truthTable = new TruthTable(expression);
+            if (!Evaluator.isValidLogicExpression(expressionString)) showError("Invalid formula syntax");
+            else {
+                Expression expression = new Expression(expressionString);
+                TruthTable truthTable = new TruthTable(expression);
 
-            Expression cnfExpression = LogicHelper.truthTableToCNF(truthTable);
-            boolean isSatisfiable = SATSolver.isSatisfiable(LogicHelper.getClausesFromCNF(cnfExpression));
-            showResult(isSatisfiable);
+                Expression cnfExpression = LogicHelper.truthTableToCNF(truthTable);
+                boolean isSatisfiable = SATSolver.isSatisfiable(LogicHelper.getClausesFromCNF(cnfExpression));
+                showResult(isSatisfiable);
+            }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            showError("Invalid formula syntax.");
+            showError("Invalid formula syntax");
         }
     }
 
     private void checkClauses() {
         String clausesString = clauseInput.getText().toString().trim();
         if (clausesString.isEmpty()) {
-            showError("Please enter clauses.");
+            showError("Please enter clauses");
             return;
         }
         try {
-            boolean isSatisfiable = SATSolver.isSatisfiable(SATSolver.parseClauses(clausesString));
-            showResult(isSatisfiable);
+            if (!SATSolver.isValidClauseFormat(clausesString))showError("Invalid clauses format");
+            else {
+                boolean isSatisfiable = SATSolver.isSatisfiable(SATSolver.parseClauses(clausesString));
+                showResult(isSatisfiable);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            showError("Invalid clauses format.");
+            showError("Invalid clauses format");
         }
     }
 
     private void showResult(boolean satisfiable) {
-        resultContainer.setVisibility(View.VISIBLE);
-        errorMessage.setVisibility(View.GONE);
-
+        resultDisplay.setVisibility(View.VISIBLE);
         if (satisfiable) {
-            resultValue.setText("SATISFIABLE");
-            resultValue.setTextColor(getColor(R.color.green));
-        }
-        else {
-            resultValue.setText("UNSATISFIABLE");
-            resultValue.setTextColor(getColor(R.color.red));
+            resultDisplay.setText("SATISFIABLE");
+            resultDisplay.setTextColor(getColor(R.color.green));
+        } else {
+            resultDisplay.setText("UNSATISFIABLE");
+            resultDisplay.setTextColor(getColor(R.color.red));
         }
     }
 
     private void showError(String message) {
-        resultContainer.setVisibility(View.GONE);
-        errorMessage.setVisibility(View.VISIBLE);
-        errorMessage.setText(message);
+        resultDisplay.setVisibility(View.VISIBLE);
+        resultDisplay.setText(message);
+        resultDisplay.setTextColor(getColor(android.R.color.holo_orange_light));
     }
 }

@@ -1,9 +1,11 @@
 package me.dariansandru.numeralis.utils.algorithms.logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import me.dariansandru.numeralis.utils.structures.logic.Clause;
 
@@ -12,6 +14,43 @@ import me.dariansandru.numeralis.utils.structures.logic.Clause;
  * of methods.
  */
 public abstract class SATSolver {
+
+    /**
+     * Checks whether a string containing clauses representing a CNF expression is valid.
+     * @param input String to check for.
+     * @return True if the clauses format is correct, false otherwise.
+     */
+    public static boolean isValidClauseFormat(String input) {
+        input = input.replaceAll("\\s+", "");
+        if (input.isEmpty()) return false;
+        if (!input.matches("^(\\{[^}{]+\\})+$")) return false;
+
+        String[] clauses = input.split("(?<=\\})|(?=\\{)");
+        for (String clause : clauses) {
+            if (clause.isEmpty()) continue;
+            if (!clause.startsWith("{") || !clause.endsWith("}")) return false;
+
+            String content = clause.substring(1, clause.length() - 1);
+            if (content.isEmpty()) return false;
+
+            String[] literals = content.split(",");
+            for (String literal : literals) {
+                if (!isValidLiteral(literal)) return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Auxiliary helper function to check if a string is a valid single literal.
+     * @param literal String containing the literal to check for.
+     * @return True if the string is a single literal, false otherwise.
+     */
+    private static boolean isValidLiteral(String literal) {
+        return literal.matches("^[A-Za-z][A-Za-z0-9]*$") ||
+                literal.matches("^¬[A-Za-z][A-Za-z0-9]*$");
+    }
 
     /**
      * Creates a list of clauses from a given input in CNF (Conjunctive Normal Form).
@@ -25,22 +64,21 @@ public abstract class SATSolver {
      */
     public static List<Clause> parseClauses(String input) {
         List<Clause> clauses = new ArrayList<>();
+        if (!isValidClauseFormat(input)) throw new IllegalArgumentException("Invalid clause format");
+
         input = input.replaceAll("\\s+", "");
-        String[] rawClauses = input.split("\\}");
+        String[] rawClauses = input.split("(?<=\\})|(?=\\{)");
 
         for (String rawClause : rawClauses) {
-            rawClause = rawClause.replace("{", "");
-            if (!rawClause.isEmpty()) {
-                String[] literals = rawClause.split(",");
-                List<String> clauseLiterals = new ArrayList<>();
+            if (rawClause.isEmpty()) continue;
 
-                for (String literal : literals) {
-                    if (!literal.isEmpty()) clauseLiterals.add(literal);
-                }
-                Clause clause = new Clause(clauseLiterals);
-                clauses.add(clause);
-            }
+            String content = rawClause.substring(1, rawClause.length() - 1);
+            String[] literals = content.split(",");
+
+            List<String> clauseLiterals = new ArrayList<>(Arrays.asList(literals));
+            clauses.add(new Clause(clauseLiterals));
         }
+
         return clauses;
     }
 

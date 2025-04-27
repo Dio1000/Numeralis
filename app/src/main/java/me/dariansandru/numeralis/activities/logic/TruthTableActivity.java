@@ -20,6 +20,7 @@ import java.util.Map;
 
 import me.dariansandru.numeralis.R;
 import me.dariansandru.numeralis.activities.MainActivity;
+import me.dariansandru.numeralis.parser.Evaluator;
 import me.dariansandru.numeralis.parser.Expression;
 import me.dariansandru.numeralis.utils.structures.logic.TruthTable;
 
@@ -80,14 +81,17 @@ public class TruthTableActivity extends AppCompatActivity {
                     throw new IllegalArgumentException("Please enter a logical expression");
                 }
 
+                if (!Evaluator.isValidLogicExpression(expressionStr)) {
+                    throw new IllegalArgumentException("Invalid logical expression.");
+                }
+
                 Expression expression = new Expression(expressionStr);
                 TruthTable truthTable = new TruthTable(expression);
                 variablesCount.setText("Variables detected: " + truthTable.getLiterals().size());
 
                 displayTruthTable(truthTableContent, truthTable);
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 errorMessage.setText(e.getMessage());
                 errorMessage.setVisibility(View.VISIBLE);
             }
