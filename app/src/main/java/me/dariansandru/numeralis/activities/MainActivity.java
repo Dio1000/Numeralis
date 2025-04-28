@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnBaseConversion).setOnClickListener(v -> openActivity(BaseConversionActivity.class));
         findViewById(R.id.btnCalculus).setOnClickListener(v -> openActivity(BitwiseActivity.class));
 
-        findViewById(R.id.btnBooleanFunctions).setOnClickListener(v -> openActivity(BooleanFunctionsActivity.class));
+        findViewById(R.id.btnLogicExpressionConverter).setOnClickListener(v -> openActivity(BooleanFunctionsActivity.class));
         findViewById(R.id.btnTruthTable).setOnClickListener(v -> openActivity(TruthTableActivity.class));
         findViewById(R.id.btnSatisfiability).setOnClickListener(v -> openActivity(SatisfiabilityActivity.class));
         findViewById(R.id.btnLogicalEquivalency).setOnClickListener(v -> openActivity(LogicalEquivalenceActivity.class));

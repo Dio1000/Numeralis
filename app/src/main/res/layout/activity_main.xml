@@ -102,20 +102,20 @@
             android:layout_marginBottom="16dp"/>
 
         <Button
-            android:id="@+id/btnBooleanFunctions"
+            android:id="@+id/btnLogicalEquivalency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Boolean Functions"
+            android:text="Logical Equivalency"
             android:backgroundTint="#3700B3"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:layout_marginBottom="12dp"/>
 
         <Button
-            android:id="@+id/btnTruthTable"
+            android:id="@+id/btnLogicExpressionConverter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Truth Table"
+            android:text="Logic Expression Converter"
             android:backgroundTint="#3700B3"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
@@ -132,13 +132,14 @@
             android:layout_marginBottom="12dp"/>
 
         <Button
-            android:id="@+id/btnLogicalEquivalency"
+            android:id="@+id/btnTruthTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logical Equivalency"
+            android:text="Truth Table"
             android:backgroundTint="#3700B3"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_marginBottom="12dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
