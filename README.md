@@ -14,8 +14,27 @@ Numeralis is a native Android application that extends the capabilities of a tra
 - **Logic Expression Converter**: Convert logical expressions to different formats (Arithmetic, CNF, DNF).
 - **Satisfiability**: Determine if a given logical expression is satisfiable.
 - **Truth Table**: Generate a truth table for a given logical expression.
+- 
+## How to Use
 
-## Screenshots
+Upon launching the app, you'll be greeted with the main menu where you can choose from various operations.  
+<img src="screenshots/main_menu.png" width="250"/>
+
+### Example Operations:
+
+Here are just a few examples of the operations available in the app:
+
+### 1. **Arithmetic Calculator**  
+Tap on "Arithmetic" to access basic arithmetic functions. This uses standard mathematical notation for the operations.  
+<img src="screenshots/arithmetic.png" width="250"/>
+
+### 2. **Logical Equivalency**  
+Navigate to "Logical Equivalency" to analyze logical equivalences. This uses standard logical notation for the operations, which you can find on the in-app keyboard.  
+<img src="screenshots/logical_equivalency.png" width="250"/>
+
+### 3. **Truth Table**  
+Select "Truth Table" to generate truth tables for logical expressions. This uses standard logical notation for the operations, which you can find on the in-app keyboard.  
+<img src="screenshots/truth_table.png" width="250"/>
 
 ## Prerequisites
 
