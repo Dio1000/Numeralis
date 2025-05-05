@@ -75,5 +75,5 @@ cd UMLGenerator
 
 Darian Sandru - sandru.darian@gmail.com
 
-Project Link: [https://github.com/Dio1000/UMLGenerator](https://github.com/Dio1000/UMLGenerator)
+Project Link: [https://github.com/Dio1000/Numeralis](https://github.com/Dio1000/Numeralis)
 
