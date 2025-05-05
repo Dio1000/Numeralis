@@ -14,7 +14,7 @@ Numeralis is a native Android application that extends the capabilities of a tra
 - **Logic Expression Converter**: Convert logical expressions to different formats (Arithmetic, CNF, DNF).
 - **Satisfiability**: Determine if a given logical expression is satisfiable.
 - **Truth Table**: Generate a truth table for a given logical expression.
-- 
+
 ## How to Use
 
 Upon launching the app, you'll be greeted with the main menu where you can choose from various operations.  
